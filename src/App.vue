@@ -16,6 +16,13 @@
     </v-toolbar>
 
     <v-content>
+      <v-img
+
+        ref="img"
+        class="my-3"
+        contain
+        height="200"
+      ></v-img>
       <HelloWorld/>
     </v-content>
   </v-app>
@@ -23,6 +30,10 @@
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import SerialPort from 'serialport'
+import * as t from 'theorem.js'
+console.log(t.sha256("TheoremJS"));
+import  qrcode from 'qrcode'
 
 export default {
   name: 'App',
@@ -31,8 +42,22 @@ export default {
   },
   data () {
     return {
-      //
+      image:null
     }
+  },
+  created(){
+    SerialPort.list(function (err, ports) {
+      ports.forEach(function(port) {
+    console.log(port);
+  })
+})
+run().catch(error => console.error(error.stack));
+let _this =this
+async function run() {
+  const res = await qrcode.toDataURL('http://asyncawait.net');
+_this.$refs.img.src=res
+}
+console.log(this.$refs)
   }
 }
 </script>
