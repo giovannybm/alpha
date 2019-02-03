@@ -1,0 +1,8 @@
+{
+  "connection":{
+      "selectPort":"Puerto"
+    },
+    "jogPanel":{
+      "distance":"Distancia a mover"
+    }
+}
