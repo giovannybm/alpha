@@ -35,6 +35,7 @@ function createWindow () {
   win.once('ready-to-show', () => {
      mainWindow.show()
  })
+
 }
 
 

@@ -6,9 +6,8 @@
       <v-btn icon small class="window-button " @click="minimize" >
         <v-icon>mdi-window-minimize</v-icon>
       </v-btn>
-
       <v-btn icon small class="window-button" @click="isMax=!isMax">
-        <v-icon  ref="maxs" v-html="isMax ? 'mdi-window-restore' : 'mdi-window-maximize'"></v-icon>
+        <v-icon   ref="maxs" v-html="isMax ? 'mdi-window-restore' : 'mdi-window-maximize'"></v-icon>
       </v-btn>
       <v-hover>
         <v-btn  icon small class="window-button"  slot-scope="{ hover }"
@@ -18,145 +17,160 @@
     </v-hover>
   </v-toolbar>
 
-
   <v-navigation-drawer
   v-model="drawer"
-
   app
   right
   floating
   clipped
   fixed
+  stateless
 
   >
-  <v-container grid-list-xs>
 
+  <v-layout row wrap class="px-2">
 
-    <v-layout row wrap>
-      <v-flex xs3>
-        <v-btn  dark outline fab   color="light-green lighten-2">
-          <v-icon>mdi-arrow-top-left</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn  depressed fab color="primary">
-          <v-icon>mdi-arrow-up</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn dark outline fab color="light-green lighten-2">
-          <v-icon>mdi-arrow-top-right</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn depressed  dark fab color="teal" >
+    <v-flex xs3 >
+      <v-btn dark outline fab color="primary">
+        <v-icon>mdi-arrow-top-left</v-icon>
+      </v-btn>
+    </v-flex >
+
+    <v-flex xs3>
+      <v-btn  depressed fab color="primary">
+        <v-icon>mdi-arrow-up</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn dark outline fab color="primary">
+        <v-icon>mdi-arrow-top-right</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn depressed  dark fab color="blue" >
         M1
-        </v-btn>
-
-      </v-flex>
-    </v-layout >
-        <v-layout row wrap>
-      <v-flex xs3>
-        <v-btn  depressed fab  color="primary">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn  depressed fab color="primary">
-          <v-icon >home</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn  depressed fab color="primary">
-          <v-icon >mdi-arrow-right</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn depressed  dark fab color="teal" >
+      </v-btn>
+    </v-flex>
+    <v-flex xs3>
+      <v-btn  depressed fab  color="primary">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn  depressed fab color="primary">
+        <v-icon >home</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn  depressed fab color="primary">
+        <v-icon >mdi-arrow-right</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn depressed  dark fab color="blue" >
         M2
-        </v-btn>
+      </v-btn>
+    </v-flex>
+    <v-flex xs3>
+      <v-btn  dark outline fab color="primary">
+        <v-icon>mdi-arrow-bottom-left</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn depressed fab color="primary">
+        <v-icon>mdi-arrow-down</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn dark outline fab color="primary">
+        <v-icon>mdi-arrow-bottom-right</v-icon>
+      </v-btn>
+    </v-flex >
+    <v-flex xs3>
+      <v-btn depressed  dark fab color="blue" >
+        <v-icon medium>mdi-axis-z-arrow</v-icon>
+      </v-btn>
+    </v-flex>
+  </v-layout>
 
-      </v-flex>
-      <v-flex xs3>
-        <v-btn  dark outline fab color="light-green lighten-2">
-          <v-icon>mdi-arrow-bottom-left</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn depressed fab color="primary">
-          <v-icon>mdi-arrow-down</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn dark outline fab color="light-green lighten-2">
-          <v-icon>mdi-arrow-bottom-right</v-icon>
-        </v-btn>
-      </v-flex >
-      <v-flex xs3>
-        <v-btn depressed  dark fab color="teal" >
-          M3
-        </v-btn>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-
-      <v-flex xs8>
-        <v-text-field
-
-        v-model="distance"
-        name="name"
-        :label="$t('jogPanel.distance')"
+  <v-layout row wrap class="px-2">
+    <v-flex xs7 offset-xs1>
+      <v-text-field
+      v-model="distance"
+      name="name"
+      :label="$t('jogPanel.distance')"
+      suffix="nn"
       >
-<template slot="append">
-
-</template>
-
+      <template slot="append">
+        <v-icon>mdi-shuffle-variant</v-icon>
+      </template>
     </v-text-field>
-      </v-flex>
-<v-flex 2>
+  </v-flex>
+  <v-flex xs2 offset-xs1>
+    <v-btn class="press" fab small depressed  color="primary"><v-icon medium>mdi-home-map-marker</v-icon></v-btn>
+  </v-flex>
 
-  <v-btn class="press"  block depressed  color="primary"><v-icon medium>mdi-home-map-marker</v-icon></v-btn>
-</v-flex>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex xs6>
-        <v-btn depressed block dark color="orange">
-          <v-icon>mdi-play</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex xs6>
-        <v-btn depressed block dark color="red"><v-icon>mdi-stop</v-icon></v-btn>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex xs3>
-        <v-btn  class="press" small depressed block color="primary">z</v-btn>
-      </v-flex>
-      <v-flex xs3>
-        <v-btn  class="press" small depressed block color="primary">z</v-btn>
-      </v-flex>
-      <v-flex xs3>
-        <v-btn  class="press" small depressed block color="primary">z</v-btn>
-      </v-flex>
-      <v-flex xs3>
-        <v-btn  class="press" small depressed block color="primary">z</v-btn>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-flex xs6 class="px-1">
+    <v-btn depressed block dark color="orange">
+      <v-icon>mdi-play</v-icon>
+    </v-btn>
+  </v-flex>
+  <v-flex xs6 class="px-1">
+    <v-btn depressed block dark color="red"><v-icon>mdi-stop</v-icon></v-btn>
+  </v-flex>
+
+  <v-flex xs3 class="px-1">
+    <v-btn style="min-width: 0;" small depressed block color="primary">z</v-btn>
+  </v-flex>
+  <v-flex xs3 class="px-1">
+    <v-btn style="min-width: 0;"   small depressed block color="primary">z</v-btn>
+  </v-flex>
+  <v-flex xs3 class="px-1">
+    <v-btn  style="min-width: 0;"   small depressed block color="primary">z</v-btn>
+  </v-flex>
+  <v-flex xs3 class="px-1">
+    <v-btn  style="min-width: 0;"  small depressed block color="primary">z</v-btn>
+  </v-flex>
+</v-layout>
+{{$store.state.serialConnection.listPorts}}
 </v-navigation-drawer>
 
 <v-content >
-<v-sheet
-class="d-flex"
-   color="transparent"
-   height="250"
-   style="z-index:3"
->
-</v-sheet>
-    <svg ref="draw2" style="z-index:4" >
+  <v-layout row wrap  id="drawdiv" fluid fill-height>
 
-    </svg>
+    <v-toolbar
+    color="white"
+    absolute
+    dense
+    floating
+    class="ma-3">
+    <v-btn icon>
+      <v-icon @click="getPorts">mdi-refresh</v-icon>
+    </v-btn>
 
+      <v-select
+      v-model="selectPort"
+      :items="$store.state.serialConnection.listPorts"
+      item-text="comName"
+      >
+
+<template slot="item" slot-scope="props">
+<span>{{props.item.comName}}</span>
+<span>{{props.item.pnpId}}</span>
+</template>
+<template slot="selection" slot-scope="props">
+<span>{{props.item.comName}}</span>
+</template>
+
+    </v-select>
+
+    <v-btn icon>
+      <v-icon>more_vert</v-icon>
+    </v-btn>
+
+  </v-toolbar>
+
+</v-layout>
 
 </v-content>
 
@@ -168,6 +182,7 @@ import * as svgLib from 'svg.js'
 import * as panZoom from 'svg.panzoom.js'
 import * as serialPort from 'serialport'
 import * as electron from 'electron'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -194,11 +209,23 @@ export default {
     }
   },
   computed:{
-    appTittle:function(){
-      return process.env.APP_TITTLE
-    }
+    ...mapActions('serialConnection',[]),
+    selectPort: {
+      get(){
+        return this.$store.state.serialConnection.selectedPort
+      },
+      set(value){
+        this.$store.commit('serialConnection/selectPort', value);
+      }
+    },
+    ...mapGetters('serialConnection',[
+      'assignPort'
+    ]),
   },
   methods:{
+    ...mapActions('serialConnection',[
+      'getPorts'
+    ]),
     minimize(){
       electron.remote.getCurrentWindow().minimize()
     },
@@ -211,7 +238,7 @@ export default {
       // var s = Snap(this.$refs.draw1)
       // // console.log(svgPath.toString());
       // var bigCircle = s.circle(150, 150, 100)
-      const draw = new svgLib(this.$refs.draw2)
+      const draw = svgLib('drawdiv')
       // .viewbox(0, 0, 250, 250)
       .size("100%", "100%")
       .panZoom({zoomMin: 0.5, zoomMax: 10, zoomFactor: 0.1})
@@ -236,18 +263,22 @@ export default {
     }
   },
   mounted:function(){
+    serialPort.list((err, ports) =>{
+      console.log(ports);
+    })
     this.draw()
     let _this = this
     _this.isMax = electron.remote.getCurrentWindow().isMaximized();
-    electron.remote.getCurrentWindow().addListener('maximize',function(){
-      _this.isMax=true
+    electron.remote.getCurrentWindow().on('maximize',()=>{
+      _this.isMax=electron.remote.getCurrentWindow().isMaximized();
     });
-    electron.remote.getCurrentWindow().addListener('unmaximize',function(){
-      _this.isMax=false
+    electron.remote.getCurrentWindow().on('unmaximize',()=>{
+      _this.isMax=electron.remote.getCurrentWindow().isMaximized();
     });
-    console.log(this.$refs);
   }
 }
+
+
 </script>
 
 <style>
@@ -260,14 +291,6 @@ export default {
 html{
   overflow:hidden;
 }
-.index-0{
-  z-index: 1;
-}
-.index-1{
-  z-index: 2;
-}
 
-.press{
-  min-width:0;
-}
+
 </style>
