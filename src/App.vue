@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app >
     <v-toolbar  app clipped-right flat dark  height="32" color="primary"  class="drag">
       App
       <v-spacer></v-spacer>
@@ -99,10 +99,10 @@
       v-model="distance"
       name="name"
       :label="$t('jogPanel.distance')"
-      suffix="nn"
+      :suffix="units"
       >
       <template slot="append">
-        <v-icon>mdi-shuffle-variant</v-icon>
+        <v-icon @click="changeUnit">mdi-shuffle-variant</v-icon>
       </template>
     </v-text-field>
   </v-flex>
@@ -144,36 +144,112 @@
     dense
     floating
     class="ma-3">
+
     <v-btn icon>
       <v-icon @click="getPorts">mdi-refresh</v-icon>
     </v-btn>
 
-      <v-select
-      v-model="selectPort"
-      :items="$store.state.serialConnection.listPorts"
-      item-text="comName"
-      >
 
-<template slot="item" slot-scope="props">
-<span>{{props.item.comName}}</span>
-<span>{{props.item.pnpId}}</span>
-</template>
-<template slot="selection" slot-scope="props">
-<span>{{props.item.comName}}</span>
-</template>
 
-    </v-select>
+    <v-select
+    v-model="selectPort"
+    :items="$store.state.serialConnection.listPorts"
+    item-text="comName"
+    >
 
-    <v-btn icon>
-      <v-icon>more_vert</v-icon>
-    </v-btn>
+    <template slot="item" slot-scope="props">
 
-  </v-toolbar>
+      <v-list-tile-content>
+        <v-list-tile-title v-html="props.item.comName"></v-list-tile-title>
+        <v-list-tile-sub-title v-html="props.item.pnpId"></v-list-tile-sub-title>
+      </v-list-tile-content>
+
+    </template>
+    <template slot="selection" slot-scope="props">
+      <span>{{props.item.comName}}</span>
+    </template>
+  </v-select>
+
+  <v-btn icon>
+    <v-icon>mdi-lan-connect</v-icon>
+  </v-btn>
+  <v-btn icon @click="dialog=!dialog">
+    <v-icon>mdi-anvil</v-icon>
+  </v-btn>
+{{dialog}}
+  <v-menu  transition="slide-y-transition"
+      bottom>
+             <v-btn
+               slot="activator"
+               icon
+             >
+               <v-icon>mdi-dots-vertical</v-icon>
+             </v-btn>
+
+             <v-list>
+               <v-list-tile
+                   @click=""
+               >
+                 <v-list-tile-title>{{$t('main.settings')}}</v-list-tile-title>
+               </v-list-tile>
+             </v-list>
+           </v-menu>
+
+
+</v-toolbar>
 
 </v-layout>
 
 </v-content>
+<v-dialog v-model="dialog" scrollable max-width="600px">
 
+      <v-card>
+        <v-card-title>Select Country</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text style="height: 500px;">
+          <v-stepper v-model="e6" vertical>
+     <v-stepper-step :complete="e6 > 1" step="1">
+       Select an app
+       <small>Summarize if needed</small>
+     </v-stepper-step>
+
+     <v-stepper-content step="1">
+       <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+       <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
+       <v-btn flat>Cancel</v-btn>
+     </v-stepper-content>
+
+     <v-stepper-step :complete="e6 > 2" step="2">Configure analytics for this app</v-stepper-step>
+
+     <v-stepper-content step="2">
+       <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+       <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
+       <v-btn flat>Cancel</v-btn>
+     </v-stepper-content>
+
+     <v-stepper-step :complete="e6 > 3" step="3">Select an ad format and name ad unit</v-stepper-step>
+
+     <v-stepper-content step="3">
+       <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+       <v-btn color="primary" @click="e6 = 4">Continue</v-btn>
+       <v-btn flat>Cancel</v-btn>
+     </v-stepper-content>
+
+     <v-stepper-step step="4">View setup instructions</v-stepper-step>
+     <v-stepper-content step="4">
+       <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+       <v-btn color="primary" @click="e6 = 1">Continue</v-btn>
+       <v-btn flat>Cancel</v-btn>
+     </v-stepper-content>
+   </v-stepper>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </v-app>
 </template>
 
@@ -182,7 +258,10 @@ import * as svgLib from 'svg.js'
 import * as panZoom from 'svg.panzoom.js'
 import * as serialPort from 'serialport'
 import * as electron from 'electron'
+import * as t from 'theorem.js'
 import { mapGetters, mapActions } from 'vuex'
+
+console.log(process)
 
 export default {
   name: 'App',
@@ -191,21 +270,13 @@ export default {
   },
   data () {
     return {
+      dialog:false,
       isMax:null,
       drawer:true,
       image:null,
       distance:1,
-      items:[
-        'one',
-        'two',
-        'three'
-      ],
-      menu: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Account', icon: 'account_box' },
-        { title: 'Admin', icon: 'gavel' }
-      ],
-      title:'Preliminary report'
+      units:'mm',
+       e6: 1
     }
   },
   computed:{
@@ -223,6 +294,15 @@ export default {
     ]),
   },
   methods:{
+    changeUnit(){
+      if (this.units=='mm'){
+        this.units='in'
+        this.distance=t.convert(this.distance,'distance','mm','in').toFixed(3)
+      }else if (this.units=='in') {
+        this.units='mm'
+      this.distance=t.convert(this.distance,'distance','in','mm').toFixed(3)
+      }
+    },
     ...mapActions('serialConnection',[
       'getPorts'
     ]),
@@ -263,9 +343,6 @@ export default {
     }
   },
   mounted:function(){
-    serialPort.list((err, ports) =>{
-      console.log(ports);
-    })
     this.draw()
     let _this = this
     _this.isMax = electron.remote.getCurrentWindow().isMaximized();

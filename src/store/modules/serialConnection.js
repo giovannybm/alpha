@@ -23,7 +23,8 @@ const getters= {
 const actions = {
   getPorts: ({ commit }) => {
     serial.list((err, ports) =>{
-      commit('getPorts', ports)
+      commit('getPorts', ports )
+      console.log(ports);
     })
   },
   selectPort: ({ commit }) => commit('selectPort')

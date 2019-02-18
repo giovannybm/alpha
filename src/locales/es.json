@@ -4,5 +4,9 @@
     },
     "jogPanel":{
       "distance":"Distancia a mover"
+    },
+    "main":{
+      "settings":"Configuración",
+      "actions":"Acciones"
     }
 }
