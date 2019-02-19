@@ -136,6 +136,7 @@
 </v-navigation-drawer>
 
 <v-content >
+ <router-view></router-view>
   <v-layout row wrap  id="drawdiv" fluid fill-height>
 
     <v-toolbar
@@ -173,7 +174,7 @@
   <v-btn icon>
     <v-icon>mdi-lan-connect</v-icon>
   </v-btn>
-  <v-btn icon @click="dialog=!dialog">
+  <v-btn icon to="/about">
     <v-icon>mdi-anvil</v-icon>
   </v-btn>
 {{dialog}}
